@@ -10,7 +10,7 @@
       let
         pkgs = import nixpkgs {system = "x86_64-linux";};
       in pkgs.rustPlatform.buildRustPackage {
-        pname = "asdsf";
+        pname = "idezet";
         version = "0.1.0";
         src=./.;
         cargoLock.lockFile = ./Cargo.lock;
