@@ -1,27 +1,20 @@
 {
-  description = "Syncronised quotes with rust";
+  description = "A very basic flake";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils }: 
-    flake-utils.lib.quotes {
-      inherit self nixpkgs;
-      packages = {
-        default = pkgs: pkgs.rustPlatform.buildRustPackage{
-          pname = "quotes";
-          version = "0.1.0";
-          src=./.;
-          cargoLock.lockFile = ./Cargo.lock;
-        };
+  outputs = { self, nixpkgs }: {
+    packages.x86_64-linux.quotesApp =
+      let
+        pkgs = import nixpkgs {system = "x86_64-linux";};
+      in pkgs.rustPlatform.buildRustPackage {
+        pname = "asdsf";
+        version = "0.1.0";
+        src=./.;
+        cargoLock.lockFile = ./Cargo.lock;
       };
-    };
-    devShells = {
-      default = pkgs: pkgs.mkShell {
-        buildInputs = [pkgs.rustc pkgs.cargo];
-      };
-    };
+  packages.x86_64-linux.default = self.packages.x86_64-linux.quotesApp;
+  };
 }
-
