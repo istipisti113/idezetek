@@ -48,7 +48,7 @@ async fn main() {
         });
 
     let routes = help.or(asdf).or(hello).or(home).or(idezet).or(read);
-    warp::serve(routes).run(([127, 0, 0, 1], port)).await;
+    warp::serve(routes).run(([0, 0, 0, 0], port)).await;
 }
 
 fn newquote(kie: &str, vicces: &str) {
