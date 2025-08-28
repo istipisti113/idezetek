@@ -21,11 +21,10 @@ struct Vicces {
 
 #[tokio::main]
 async fn main() {
+    println!("javaslatok: {}", fs::read_to_string("javaslatok.txt").unwrap());
     let port = 3030;
     println!("running on port {}", port);
-    let hello = warp::path!("hello" / String).map(|name| format!("hello {}", name));
     let help = warp::path!("help").map(|| "help here");
-    let asdf = warp::path!("asdf").map(|| "asdf here");
     let home =
         warp::path::end().map(|| warp::reply::html(fs::read_to_string("index.html").unwrap()));
     let idezet = warp::post()
@@ -47,7 +46,20 @@ async fn main() {
             fs::read_to_string(param+".txt").unwrap()
         });
 
-    let routes = help.or(asdf).or(hello).or(home).or(idezet).or(read);
+    let javaslat = warp::post()
+        .and(warp::path("javaslat"))
+        .and(warp::body::form())
+        .map(|jav: HashMap<String, String>|{
+            println!("{}", &jav["javaslat"]);
+            newquote("javaslatok", &jav["javaslat"]);
+            warp::reply::html("elmentve")
+        });
+    let javaslatok = warp::path("javaslatok")
+        .map(||{
+            fs::read_to_string("javaslatok.txt").unwrap()
+        });
+
+    let routes = help.or(home).or(idezet).or(read).or(javaslat).or(javaslatok);
     warp::serve(routes).run(([0, 0, 0, 0], port)).await;
 }
 
