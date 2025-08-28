@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>aranykopesek</title>
+</head>
+<body>
+    <h1>izom idezetek</h1>
+    <form id= "idezet" action="/idezet" method="post" redirect=false target="_parent">
+      <label>
+        kie:
+        <select name="kie" id="kie">
+          <option value="imre">imre</option>
+          <option value="vili">vili</option>
+          <option value="patrik">patrik</option>
+          <option value="pisti">pisti</option>
+        </select>
+      </label>
+      <br><br>
+      <label>
+        vicces:
+        <input type="text" name="vicces" id="vicces" placeholder="vicces">
+      </label>
+      <button type="submit">mentes</button>
+    </form>
+
+      <br><br>
+    <a href="/quotesof/vili">Vili</a>
+      <br><br>
+    <a href="/quotesof/patrik">Patrik</a>
+      <br><br>
+    <a href="/quotesof/imre">Imre</a>
+      <br><br>
+    <a href="/quotesof/pisti">Pisti</a>
+      <br><br>
+
+    <script>
+      const form = document.getElementById("idezet");
+      form.addEventListener('submit', function (e){
+        e.preventDefault(); // prevent page reload
+
+        const formData = {
+          kie: document.getElementById("kie");
+          vicces: document.getElementById("vicces");
+        }
+
+        fetch('/idezet', {
+          method: 'POST',
+          body: JSON.stringify(formData)
+        }).catch(err => console.error(err));
+      });
+    </script>
+</body>
+</html>
+
