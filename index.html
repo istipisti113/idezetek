@@ -33,15 +33,15 @@
       <br><br>
     <a href="/quotesof/pisti">Pisti</a>
       <br><br>
-
+    <!-->
     <script>
       const form = document.getElementById("idezet");
       form.addEventListener('submit', function (e){
         e.preventDefault(); // prevent page reload
 
         const formData = {
-          kie: document.getElementById("kie");
-          vicces: document.getElementById("vicces");
+          kie: document.getElementById("kie")
+          vicces: document.getElementById("vicces")
         }
 
         fetch('/idezet', {
@@ -50,6 +50,7 @@
         }).catch(err => console.error(err));
       });
     </script>
+    <!-->
 </body>
 </html>
 
