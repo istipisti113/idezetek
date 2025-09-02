@@ -59,7 +59,12 @@ async fn main() {
             fs::read_to_string("javaslatok.txt").unwrap()
         });
 
-    let routes = help.or(home).or(idezet).or(read).or(javaslat).or(javaslatok);
+    let zenek = warp::path("zenek")
+        .map(||{
+            warp::reply::html(fs::read_to_string("zenek.html").unwrap())
+        });
+
+    let routes = help.or(home).or(idezet).or(read).or(javaslat).or(javaslatok).or(zenek);
     warp::serve(routes).run(([0, 0, 0, 0], port)).await;
 }
 
