@@ -25,6 +25,7 @@ async fn main() {
     let port = 3030;
     println!("running on port {}", port);
     let help = warp::path!("help").map(|| "help here");
+    let style = warp::path("style.css").and(warp::fs::file("style.css"));
     let home =
         warp::path::end().map(|| warp::reply::html(fs::read_to_string("index.html").unwrap()));
     let idezet = warp::post()
@@ -71,7 +72,7 @@ async fn main() {
             warp::reply::html(fs::read_to_string("quotesof.html").unwrap().replace(":?", &fs::read_to_string(param+".txt").unwrap()))
         });
 
-    let routes = help.or(home).or(idezet).or(read).or(javaslat).or(javaslatok).or(zenek).or(read_uj);
+    let routes = help.or(home).or(idezet).or(read).or(javaslat).or(javaslatok).or(zenek).or(read_uj).or(style);
     warp::serve(routes).run(([0, 0, 0, 0], port)).await;
 }
 
