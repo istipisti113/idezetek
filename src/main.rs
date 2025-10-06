@@ -64,7 +64,14 @@ async fn main() {
             warp::reply::html(fs::read_to_string("zenek.html").unwrap())
         });
 
-    let routes = help.or(home).or(idezet).or(read).or(javaslat).or(javaslatok).or(zenek);
+    let read_uj = warp::path("quotesof_uj")
+        .and(warp::path::param())
+        .map(|param: String| {
+            //fs::read_to_string(param+".txt").unwrap()
+            warp::reply::html(fs::read_to_string("quotesof.html").unwrap().replace(":?", &fs::read_to_string(param+".txt").unwrap()))
+        });
+
+    let routes = help.or(home).or(idezet).or(read).or(javaslat).or(javaslatok).or(zenek).or(read_uj);
     warp::serve(routes).run(([0, 0, 0, 0], port)).await;
 }
 
@@ -73,4 +80,9 @@ fn newquote(kie: &str, vicces: &str) {
         .append(true)
         .open(kie.to_owned()+".txt").unwrap();
     file.write_all(format!("\n{}", vicces).as_bytes()).unwrap();
+}
+fn prepare(quotes: &str) {
+    let mut sliced: Vec<&str>= quotes.split("\n").collect::<Vec<&str>>().iter().map(|quote|{
+        *quote
+    }).collect();
 }
