@@ -3,16 +3,18 @@
   <head>
     <meta charset="UTF-8">
     <title>aranykopesek</title>
-    <link rel="stylesheet" href="./bootstrap-5.3.8-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bootstrap.css">
     <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="bootstrap.js"></script>
   </head>
   <body>
-    <div class="container text-center">
-      <h1>izom idezetek</h1>
+    <div class="container-fluid text-center">
+      <h1 style="margin:auto;">izom idezetek</h1>
+    </div>
+    <div class="container">
       <div class="row">
-
-        <div class= "col-md-6">
+        <div class= "col-md-4">
           <form id= "idezet" action="/idezet" method="post" redirect=false target="_parent">
             <label>
               kie:
@@ -33,29 +35,27 @@
           </form>
         </div>
 
-        <div class= "col-md-6">
-          <br><br>
-          <a href="/quotesof/vili">Vili</a>
-          <br><br>
-          <a href="/quotesof/patrik">Patrik</a>
-          <br><br>
-          <a href="/quotesof/imre">Imre</a>
-          <br><br>
-          <a href="/quotesof/pisti">Pisti</a>
-          <br><br>
-          <a href="/quotesof/belsosviccek">belsos viccek</a>
-          <br><br>
+        <div class= "col-md-4" id="linkek">
+          <p>
+            <a href="/quotesof/vili" class="quotelink">Vili</a>
+            <a href="/quotesof/patrik" class="quotelink">Patrik</a>
+            <a href="/quotesof/imre" class="quotelink">Imre</a>
+          </p>
+          <p>
+            <a href="/quotesof/pisti" class="quotelink">Pisti</a>
+            <a href="/quotesof/belsosviccek" class="quotelink">belsos viccek</a>
+            <a href="/zenek">Zenek</a>
+          </p>
         </div>
-
-        <a href="/zenek">Zenek</a>
-          <br><br>
-        <form id= "javaslat" action="/javaslat" method="post" redirect=false>
-          irj javaslatot, mit kene valtoztatni
-          <br>
-          <input type="text" name="javaslat" id="javaslat" placeholder="...">
-          <button type="submit">kuldes</button>
-        </form>
-        <a href="/javaslatok">javaslatok</a>
+        <div class="col-md-4">
+          <form id= "javaslat" action="/javaslat" method="post" redirect=false style="padding-bottom:20px">
+            irj javaslatot, mit kene valtoztatni
+            <br>
+            <input type="text" name="javaslat" id="javaslat" placeholder="...">
+            <button type="submit">kuldes</button>
+          </form>
+          <p><a href="/javaslatok">javaslatok</a></p>
+        </div>
       </div>
     </div>
   </body>
